@@ -1,0 +1,91 @@
+openapi: 3.0.3
+info:
+  description: This is a simple Car Information Center Api
+  version: 1.0.0
+  title: OpenAPI Car Information Service
+  contact:
+    name: "Car Store"
+    url: localhost/test
+tags:
+  - name: car
+    description: all about the cars
+servers:
+  - url: "http://localhost:8080"
+    description: "Local server"
+  - url: "https://localhost:8443"
+    description: "Local server2"
+paths:
+  /cats:
+      get:
+        tags:
+          - car
+        summary: retrives list of all cars 
+        description: retrives a ton of cars
+        operationId: listCars
+        responses: 
+          200:
+            description: "Successful operation"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/CarsResponse"
+      put:
+        tags:
+          - car
+        summary: updating car details
+        description: updating car details
+        operationId: updateCars
+        responses: 
+          200:
+            description: "Successful operation"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/CarsResponse"
+      post:
+        tags:
+          - car
+        summary: add new car details
+        description: add new car details
+        operationId: createCars
+        responses: 
+          200:
+            description: "Successful operation"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/CarsResponse"
+
+components:
+  schemas:
+    CarsResponse:
+      type: object
+      description: response of all cars
+      properties:
+        cars:
+          type: array
+          items:
+            $ref: "#/components/schemas/Car"
+          description: List of cars
+
+    Car:
+        title: Car
+        description: A car
+        required:
+          - name
+          - brand
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+            description: Name of the car
+            example: supercar
+          brand:
+            type: string
+            description: Brand of the car
+            enum:
+              - Audi
+              - Toyota
+              - Benz
+              - Lamborgini
